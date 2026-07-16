@@ -10,7 +10,15 @@ import { toast } from "sonner";
 const searchSchema = z.object({
   mode: z.enum(["signin", "signup"]).optional().default("signin"),
   redirect: z.string().optional(),
+  next: z.string().optional(),
 });
+
+// Only allow same-origin relative paths as post-auth return targets.
+function safeNext(next: string | undefined): string | null {
+  if (!next) return null;
+  if (!next.startsWith("/") || next.startsWith("//")) return null;
+  return next;
+}
 
 export const Route = createFileRoute("/auth")({
   validateSearch: searchSchema,
@@ -22,20 +30,30 @@ export const Route = createFileRoute("/auth")({
     ],
   }),
   component: AuthPage,
-  beforeLoad: async () => {
+  beforeLoad: async ({ search }) => {
     const { data } = await supabase.auth.getSession();
     if (data.session) {
+      const next = safeNext(search.next);
+      if (next) throw redirect({ href: next });
       throw redirect({ to: "/dashboard" });
     }
   },
 });
 
 function AuthPage() {
-  const { mode: initialMode } = Route.useSearch();
+  const { mode: initialMode, next: nextParam } = Route.useSearch();
+  const next = safeNext(nextParam);
   const [mode, setMode] = useState<"signin" | "signup">(initialMode);
   const navigate = useNavigate();
 
   useEffect(() => setMode(initialMode), [initialMode]);
+
+  // After sign-in/sign-up, land on `next` (a same-origin path from OAuth
+  // consent) when present, otherwise the normal dashboard.
+  const goPostAuth = () => {
+    if (next) window.location.href = next;
+    else navigate({ to: "/dashboard" });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -101,15 +119,20 @@ function AuthPage() {
             <button
               type="button"
               onClick={async () => {
+                // Ask Google to return to /auth with the same next=, so the
+                // beforeLoad above forwards to the consent URL after session hydrates.
+                const returnUrl = next
+                  ? `${window.location.origin}/auth?next=${encodeURIComponent(next)}`
+                  : window.location.origin;
                 const result = await lovable.auth.signInWithOAuth("google", {
-                  redirect_uri: window.location.origin,
+                  redirect_uri: returnUrl,
                 });
                 if (result.error) {
                   toast.error(result.error.message ?? "Google sign-in failed");
                   return;
                 }
                 if (result.redirected) return;
-                navigate({ to: "/dashboard" });
+                goPostAuth();
               }}
               className="mt-6 inline-flex h-11 w-full items-center justify-center gap-3 rounded-md border border-border bg-surface-elevated text-sm font-semibold shadow-soft transition-colors hover:bg-secondary"
             >
@@ -122,7 +145,7 @@ function AuthPage() {
               <span className="h-px flex-1 bg-border" />
             </div>
 
-            {mode === "signin" ? <SignInForm /> : <SignUpForm />}
+            {mode === "signin" ? <SignInForm onSuccess={goPostAuth} /> : <SignUpForm onSuccess={goPostAuth} next={next} />}
           </div>
         </main>
       </div>
@@ -130,8 +153,7 @@ function AuthPage() {
   );
 }
 
-function SignInForm() {
-  const navigate = useNavigate();
+function SignInForm({ onSuccess }: { onSuccess: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -149,7 +171,7 @@ function SignInForm() {
           return;
         }
         toast.success("Signed in");
-        navigate({ to: "/dashboard" });
+        onSuccess();
       }}
     >
       <Field icon={Mail} label="Email" type="email" value={email} onChange={setEmail} required />
@@ -159,8 +181,7 @@ function SignInForm() {
   );
 }
 
-function SignUpForm() {
-  const navigate = useNavigate();
+function SignUpForm({ onSuccess, next }: { onSuccess: () => void; next: string | null }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -173,11 +194,14 @@ function SignUpForm() {
       onSubmit={async (e) => {
         e.preventDefault();
         setLoading(true);
+        const emailRedirectTo = next
+          ? `${window.location.origin}/auth?next=${encodeURIComponent(next)}`
+          : window.location.origin;
         const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo,
             data: { full_name: fullName, role },
           },
         });
@@ -187,7 +211,7 @@ function SignUpForm() {
           return;
         }
         toast.success("Account created — you can sign in now.");
-        navigate({ to: "/dashboard" });
+        onSuccess();
       }}
     >
       <Field icon={UserIcon} label="Full name" type="text" value={fullName} onChange={setFullName} required />

@@ -1,0 +1,256 @@
+{
+  "version": 1,
+  "sdk_version": "0.22.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://jfosagczzvwijrdeqbxf.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "escorts-kubota-ai",
+      "version": "0.1.0",
+      "title": "Escorts Kubota AI Service Assistant"
+    },
+    "tools": [
+      {
+        "name": "list_my_tickets",
+        "title": "List my service tickets",
+        "description": "List complaint / service tickets that belong to the signed-in user (as customer, dealer, or assigned engineer). RLS enforces visibility.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "open",
+                "triaged",
+                "in_progress",
+                "resolved",
+                "closed"
+              ],
+              "description": "Optional status filter."
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20,
+              "description": "Max tickets to return."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_ticket",
+        "title": "Register a service complaint",
+        "description": "Create a new complaint / service ticket for the signed-in user. AI triage runs automatically in the app; this tool records the raw complaint.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 3,
+              "description": "Short summary of the issue."
+            },
+            "description": {
+              "type": "string",
+              "minLength": 10,
+              "description": "Detailed description of the problem."
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "engine",
+                "hydraulics",
+                "electrical",
+                "transmission",
+                "warranty",
+                "delivery",
+                "other"
+              ],
+              "default": "other"
+            },
+            "priority": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "urgent"
+              ],
+              "default": "medium"
+            }
+          },
+          "required": [
+            "title",
+            "description"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_appointments",
+        "title": "List service appointments",
+        "description": "List service appointments visible to the signed-in user (own bookings for customers; assigned/all for staff). RLS enforces visibility.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "book_appointment",
+        "title": "Book a service appointment",
+        "description": "Create a new service appointment for the signed-in customer. Status starts as 'requested' and staff will confirm.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "serviceType": {
+              "type": "string",
+              "minLength": 2,
+              "description": "e.g. 'Routine service', 'Engine diagnostics'."
+            },
+            "scheduledAt": {
+              "type": "string",
+              "description": "ISO 8601 date-time when the service should happen (e.g. 2026-08-01T10:00:00Z)."
+            },
+            "address": {
+              "type": "string"
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "serviceType",
+            "scheduledAt"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_warranties",
+        "title": "List my warranties",
+        "description": "List warranty registrations for the signed-in customer.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "search_tractors",
+        "title": "Search the tractor catalog",
+        "description": "Search Escorts Kubota (Farmtrac / Powertrac) tractors by HP range, budget, or brand.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "minHp": {
+              "type": "integer"
+            },
+            "maxHp": {
+              "type": "integer"
+            },
+            "maxPriceInr": {
+              "type": "integer"
+            },
+            "brand": {
+              "type": "string",
+              "description": "e.g. 'Farmtrac', 'Powertrac'"
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "find_dealers",
+        "title": "Find authorised dealers",
+        "description": "Look up authorised Escorts Kubota dealers, optionally filtered by region or city.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "region": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
