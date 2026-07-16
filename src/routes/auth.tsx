@@ -41,11 +41,19 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
-  const { mode: initialMode } = Route.useSearch();
+  const { mode: initialMode, next: nextParam } = Route.useSearch();
+  const next = safeNext(nextParam);
   const [mode, setMode] = useState<"signin" | "signup">(initialMode);
   const navigate = useNavigate();
 
   useEffect(() => setMode(initialMode), [initialMode]);
+
+  // After sign-in/sign-up, land on `next` (a same-origin path from OAuth
+  // consent) when present, otherwise the normal dashboard.
+  const goPostAuth = () => {
+    if (next) window.location.href = next;
+    else navigate({ to: "/dashboard" });
+  };
 
   return (
     <div className="min-h-screen bg-background">
