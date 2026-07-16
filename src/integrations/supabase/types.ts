@@ -213,6 +213,104 @@ export type Database = {
         }
         Relationships: []
       }
+      service_appointment_updates: {
+        Row: {
+          appointment_id: string
+          author_id: string | null
+          created_at: string
+          id: string
+          message: string
+          status: Database["public"]["Enums"]["appointment_status"] | null
+        }
+        Insert: {
+          appointment_id: string
+          author_id?: string | null
+          created_at?: string
+          id?: string
+          message: string
+          status?: Database["public"]["Enums"]["appointment_status"] | null
+        }
+        Update: {
+          appointment_id?: string
+          author_id?: string | null
+          created_at?: string
+          id?: string
+          message?: string
+          status?: Database["public"]["Enums"]["appointment_status"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_appointment_updates_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "service_appointments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_appointments: {
+        Row: {
+          address: string | null
+          created_at: string
+          customer_id: string
+          dealer_id: string | null
+          engineer_id: string | null
+          id: string
+          notes: string | null
+          scheduled_at: string
+          serial_number: string | null
+          service_type: string
+          status: Database["public"]["Enums"]["appointment_status"]
+          tractor_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          customer_id: string
+          dealer_id?: string | null
+          engineer_id?: string | null
+          id?: string
+          notes?: string | null
+          scheduled_at: string
+          serial_number?: string | null
+          service_type: string
+          status?: Database["public"]["Enums"]["appointment_status"]
+          tractor_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          customer_id?: string
+          dealer_id?: string | null
+          engineer_id?: string | null
+          id?: string
+          notes?: string | null
+          scheduled_at?: string
+          serial_number?: string | null
+          service_type?: string
+          status?: Database["public"]["Enums"]["appointment_status"]
+          tractor_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_appointments_dealer_id_fkey"
+            columns: ["dealer_id"]
+            isOneToOne: false
+            referencedRelation: "dealers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_appointments_tractor_id_fkey"
+            columns: ["tractor_id"]
+            isOneToOne: false
+            referencedRelation: "tractors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ticket_messages: {
         Row: {
           body: string
@@ -450,6 +548,13 @@ export type Database = {
     Enums: {
       app_language: "en" | "hi"
       app_role: "customer" | "dealer" | "service_engineer" | "admin"
+      appointment_status:
+        | "requested"
+        | "confirmed"
+        | "scheduled"
+        | "in_progress"
+        | "completed"
+        | "cancelled"
       ticket_category:
         | "engine"
         | "hydraulics"
@@ -595,6 +700,14 @@ export const Constants = {
     Enums: {
       app_language: ["en", "hi"],
       app_role: ["customer", "dealer", "service_engineer", "admin"],
+      appointment_status: [
+        "requested",
+        "confirmed",
+        "scheduled",
+        "in_progress",
+        "completed",
+        "cancelled",
+      ],
       ticket_category: [
         "engine",
         "hydraulics",
