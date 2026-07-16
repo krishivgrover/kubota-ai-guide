@@ -30,9 +30,11 @@ export const Route = createFileRoute("/auth")({
     ],
   }),
   component: AuthPage,
-  beforeLoad: async () => {
+  beforeLoad: async ({ search }) => {
     const { data } = await supabase.auth.getSession();
     if (data.session) {
+      const next = safeNext(search.next);
+      if (next) throw redirect({ href: next });
       throw redirect({ to: "/dashboard" });
     }
   },
