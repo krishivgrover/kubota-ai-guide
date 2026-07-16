@@ -1,0 +1,7 @@
+# Escorts Kubota AI Service Assistant
+
+> Enterprise AI service platform for Escorts Kubota — RAG-powered assistant for tractor diagnosis, manual search, service tickets, dealer locator, and maintenance scheduling across customers, dealers, engineers, and admins.
+
+## Pages
+
+- [Home](/): Overview of the AI service assistant, key capabilities, role-based experiences, and how the retrieval-augmented platform works for farm machinery support.
