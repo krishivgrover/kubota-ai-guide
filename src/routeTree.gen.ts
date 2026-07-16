@@ -26,6 +26,7 @@ import { Route as AuthenticatedDashboardComplaintsRouteImport } from './routes/_
 import { Route as AuthenticatedDashboardChatRouteImport } from './routes/_authenticated/dashboard/chat'
 import { Route as AuthenticatedDashboardAppointmentsRouteImport } from './routes/_authenticated/dashboard/appointments'
 import { Route as AuthenticatedDashboardAdminRouteImport } from './routes/_authenticated/dashboard/admin'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -122,6 +123,11 @@ const AuthenticatedDashboardAdminRoute =
     path: '/dashboard/admin',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/dashboard/admin': typeof AuthenticatedDashboardAdminRoute
   '/dashboard/appointments': typeof AuthenticatedDashboardAppointmentsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/dashboard/admin': typeof AuthenticatedDashboardAdminRoute
   '/dashboard/appointments': typeof AuthenticatedDashboardAppointmentsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/_authenticated/dashboard/admin': typeof AuthenticatedDashboardAdminRoute
   '/_authenticated/dashboard/appointments': typeof AuthenticatedDashboardAppointmentsRoute
   '/_authenticated/dashboard/chat': typeof AuthenticatedDashboardChatRoute
@@ -187,6 +196,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/stt'
     | '/api/tts'
+    | '/.lovable/oauth/consent'
     | '/dashboard/admin'
     | '/dashboard/appointments'
     | '/dashboard/chat'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/stt'
     | '/api/tts'
+    | '/.lovable/oauth/consent'
     | '/dashboard/admin'
     | '/dashboard/appointments'
     | '/dashboard/chat'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/stt'
     | '/api/tts'
+    | '/.lovable/oauth/consent'
     | '/_authenticated/dashboard/admin'
     | '/_authenticated/dashboard/appointments'
     | '/_authenticated/dashboard/chat'
@@ -244,6 +256,7 @@ export interface RootRouteChildren {
   ApiChatRoute: typeof ApiChatRoute
   ApiSttRoute: typeof ApiSttRoute
   ApiTtsRoute: typeof ApiTtsRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -367,6 +380,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -409,6 +429,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiChatRoute: ApiChatRoute,
   ApiSttRoute: ApiSttRoute,
   ApiTtsRoute: ApiTtsRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
