@@ -90,10 +90,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: APP_DESCRIPTION },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { title: "Escorts Kubota AI Service Assistant — Enterprise AI for Farm Machinery" },
+      { property: "og:title", content: "Escorts Kubota AI Service Assistant — Enterprise AI for Farm Machinery" },
+      { name: "twitter:title", content: "Escorts Kubota AI Service Assistant — Enterprise AI for Farm Machinery" },
+      { name: "description", content: "AI-powered service platform for Escorts Kubota. Diagnose tractors, browse manuals with RAG, register complaints, and get multilingual support — for customers, dealers, engineers, and admins." },
+      { property: "og:description", content: "AI-powered service platform for Escorts Kubota. Diagnose tractors, browse manuals with RAG, register complaints, and get multilingual support — for customers, dealers, engineers, and admins." },
+      { name: "twitter:description", content: "AI-powered service platform for Escorts Kubota. Diagnose tractors, browse manuals with RAG, register complaints, and get multilingual support — for customers, dealers, engineers, and admins." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/8dfd086b-706b-40d5-877b-d5cd904a0790" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/8dfd086b-706b-40d5-877b-d5cd904a0790" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
