@@ -33,12 +33,14 @@ function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <Hero />
-      <Trust />
-      <Features />
-      <Roles />
-      <HowItWorks />
-      <CTA />
+      <main>
+        <Hero />
+        <Trust />
+        <Features />
+        <Roles />
+        <HowItWorks />
+        <CTA />
+      </main>
       <Footer />
     </div>
   );
