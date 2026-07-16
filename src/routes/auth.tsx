@@ -153,8 +153,7 @@ function AuthPage() {
   );
 }
 
-function SignInForm() {
-  const navigate = useNavigate();
+function SignInForm({ onSuccess }: { onSuccess: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -172,7 +171,7 @@ function SignInForm() {
           return;
         }
         toast.success("Signed in");
-        navigate({ to: "/dashboard" });
+        onSuccess();
       }}
     >
       <Field icon={Mail} label="Email" type="email" value={email} onChange={setEmail} required />
