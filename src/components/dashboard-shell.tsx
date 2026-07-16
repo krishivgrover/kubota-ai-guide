@@ -21,17 +21,20 @@ export function DashboardShell({ role, children }: Props) {
       { to: "/dashboard/customer", label: "Overview", icon: LayoutDashboard },
       { to: "/dashboard/chat", label: "AI Assistant", icon: Bot },
       { to: "/dashboard/complaints", label: "Complaints", icon: MessageSquare },
+      { to: "/dashboard/appointments", label: "Service appointments", icon: CalendarClock },
       { to: "/dashboard/recommend", label: "Find a tractor", icon: Tractor },
     ],
     dealer: [
       { to: "/dashboard/dealer", label: "Overview", icon: LayoutDashboard },
       { to: "/dashboard/chat", label: "AI Assistant", icon: Bot },
       { to: "/dashboard/complaints", label: "Tickets", icon: MessageSquare },
+      { to: "/dashboard/appointments", label: "Appointments", icon: CalendarClock },
     ],
     service_engineer: [
       { to: "/dashboard/engineer", label: "Overview", icon: LayoutDashboard },
       { to: "/dashboard/chat", label: "Diagnostic AI", icon: Bot },
       { to: "/dashboard/complaints", label: "My tickets", icon: Wrench },
+      { to: "/dashboard/appointments", label: "Appointments", icon: CalendarClock },
     ],
     admin: [
       { to: "/dashboard/admin", label: "Overview", icon: LayoutDashboard },
