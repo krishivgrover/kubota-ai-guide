@@ -2,7 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { ROLE_LABELS, type AppRole } from "@/lib/roles";
-import { Bot, LayoutDashboard, LogOut, MessageSquare, Tractor, Wrench, Users, ShieldCheck, BookOpen } from "lucide-react";
+import { Bot, LayoutDashboard, LogOut, MessageSquare, Tractor, Wrench, Users, ShieldCheck, BookOpen, CalendarClock } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -21,17 +21,20 @@ export function DashboardShell({ role, children }: Props) {
       { to: "/dashboard/customer", label: "Overview", icon: LayoutDashboard },
       { to: "/dashboard/chat", label: "AI Assistant", icon: Bot },
       { to: "/dashboard/complaints", label: "Complaints", icon: MessageSquare },
+      { to: "/dashboard/appointments", label: "Service appointments", icon: CalendarClock },
       { to: "/dashboard/recommend", label: "Find a tractor", icon: Tractor },
     ],
     dealer: [
       { to: "/dashboard/dealer", label: "Overview", icon: LayoutDashboard },
       { to: "/dashboard/chat", label: "AI Assistant", icon: Bot },
       { to: "/dashboard/complaints", label: "Tickets", icon: MessageSquare },
+      { to: "/dashboard/appointments", label: "Appointments", icon: CalendarClock },
     ],
     service_engineer: [
       { to: "/dashboard/engineer", label: "Overview", icon: LayoutDashboard },
       { to: "/dashboard/chat", label: "Diagnostic AI", icon: Bot },
       { to: "/dashboard/complaints", label: "My tickets", icon: Wrench },
+      { to: "/dashboard/appointments", label: "Appointments", icon: CalendarClock },
     ],
     admin: [
       { to: "/dashboard/admin", label: "Overview", icon: LayoutDashboard },

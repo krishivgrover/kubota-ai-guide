@@ -37,10 +37,10 @@ function CustomerDash() {
           body="Answer a few questions — we'll match you to the perfect Farmtrac or Powertrac model."
         />
         <ActionCard
-          to="/dashboard/chat"
+          to="/dashboard/appointments"
           icon={Wrench}
-          title="Maintenance schedule"
-          body="Never miss an oil change. Set reminders based on engine hours and service intervals."
+          title="Book a service appointment"
+          body="Schedule maintenance with an authorised dealer or engineer and get live status updates."
         />
       </div>
     </DashboardShell>

@@ -24,6 +24,7 @@ import { Route as AuthenticatedDashboardDealerRouteImport } from './routes/_auth
 import { Route as AuthenticatedDashboardCustomerRouteImport } from './routes/_authenticated/dashboard/customer'
 import { Route as AuthenticatedDashboardComplaintsRouteImport } from './routes/_authenticated/dashboard/complaints'
 import { Route as AuthenticatedDashboardChatRouteImport } from './routes/_authenticated/dashboard/chat'
+import { Route as AuthenticatedDashboardAppointmentsRouteImport } from './routes/_authenticated/dashboard/appointments'
 import { Route as AuthenticatedDashboardAdminRouteImport } from './routes/_authenticated/dashboard/admin'
 
 const AuthRoute = AuthRouteImport.update({
@@ -109,6 +110,12 @@ const AuthenticatedDashboardChatRoute =
     path: '/dashboard/chat',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDashboardAppointmentsRoute =
+  AuthenticatedDashboardAppointmentsRouteImport.update({
+    id: '/dashboard/appointments',
+    path: '/dashboard/appointments',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardAdminRoute =
   AuthenticatedDashboardAdminRouteImport.update({
     id: '/dashboard/admin',
@@ -123,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
   '/dashboard/admin': typeof AuthenticatedDashboardAdminRoute
+  '/dashboard/appointments': typeof AuthenticatedDashboardAppointmentsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/complaints': typeof AuthenticatedDashboardComplaintsRoute
   '/dashboard/customer': typeof AuthenticatedDashboardCustomerRoute
@@ -140,6 +148,7 @@ export interface FileRoutesByTo {
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
   '/dashboard/admin': typeof AuthenticatedDashboardAdminRoute
+  '/dashboard/appointments': typeof AuthenticatedDashboardAppointmentsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/complaints': typeof AuthenticatedDashboardComplaintsRoute
   '/dashboard/customer': typeof AuthenticatedDashboardCustomerRoute
@@ -159,6 +168,7 @@ export interface FileRoutesById {
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
   '/_authenticated/dashboard/admin': typeof AuthenticatedDashboardAdminRoute
+  '/_authenticated/dashboard/appointments': typeof AuthenticatedDashboardAppointmentsRoute
   '/_authenticated/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/_authenticated/dashboard/complaints': typeof AuthenticatedDashboardComplaintsRoute
   '/_authenticated/dashboard/customer': typeof AuthenticatedDashboardCustomerRoute
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/api/stt'
     | '/api/tts'
     | '/dashboard/admin'
+    | '/dashboard/appointments'
     | '/dashboard/chat'
     | '/dashboard/complaints'
     | '/dashboard/customer'
@@ -195,6 +206,7 @@ export interface FileRouteTypes {
     | '/api/stt'
     | '/api/tts'
     | '/dashboard/admin'
+    | '/dashboard/appointments'
     | '/dashboard/chat'
     | '/dashboard/complaints'
     | '/dashboard/customer'
@@ -213,6 +225,7 @@ export interface FileRouteTypes {
     | '/api/stt'
     | '/api/tts'
     | '/_authenticated/dashboard/admin'
+    | '/_authenticated/dashboard/appointments'
     | '/_authenticated/dashboard/chat'
     | '/_authenticated/dashboard/complaints'
     | '/_authenticated/dashboard/customer'
@@ -340,6 +353,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardChatRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dashboard/appointments': {
+      id: '/_authenticated/dashboard/appointments'
+      path: '/dashboard/appointments'
+      fullPath: '/dashboard/appointments'
+      preLoaderRoute: typeof AuthenticatedDashboardAppointmentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard/admin': {
       id: '/_authenticated/dashboard/admin'
       path: '/dashboard/admin'
@@ -352,6 +372,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardAdminRoute: typeof AuthenticatedDashboardAdminRoute
+  AuthenticatedDashboardAppointmentsRoute: typeof AuthenticatedDashboardAppointmentsRoute
   AuthenticatedDashboardChatRoute: typeof AuthenticatedDashboardChatRoute
   AuthenticatedDashboardComplaintsRoute: typeof AuthenticatedDashboardComplaintsRoute
   AuthenticatedDashboardCustomerRoute: typeof AuthenticatedDashboardCustomerRoute
@@ -365,6 +386,8 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardAdminRoute: AuthenticatedDashboardAdminRoute,
+  AuthenticatedDashboardAppointmentsRoute:
+    AuthenticatedDashboardAppointmentsRoute,
   AuthenticatedDashboardChatRoute: AuthenticatedDashboardChatRoute,
   AuthenticatedDashboardComplaintsRoute: AuthenticatedDashboardComplaintsRoute,
   AuthenticatedDashboardCustomerRoute: AuthenticatedDashboardCustomerRoute,
