@@ -103,7 +103,7 @@ function Consent() {
         <div className="mt-5 rounded-lg border border-border bg-muted/30 p-4 text-sm">
           <div className="text-xs uppercase text-muted-foreground">Requested access</div>
           <ul className="mt-2 space-y-1">
-            {scopes.map((s) => (
+            {scopes.map((s: string) => (
               <li key={s}>• {friendlyScope(s)}</li>
             ))}
             <li>• Use enabled tools (tickets, appointments, warranties, catalog) as you</li>
