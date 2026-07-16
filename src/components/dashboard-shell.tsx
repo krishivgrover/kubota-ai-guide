@@ -2,7 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { ROLE_LABELS, type AppRole } from "@/lib/roles";
-import { Bot, LayoutDashboard, LogOut, MessageSquare, Tractor, Wrench, Users, ShieldCheck, BookOpen } from "lucide-react";
+import { Bot, LayoutDashboard, LogOut, MessageSquare, Tractor, Wrench, Users, ShieldCheck, BookOpen, CalendarClock } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
