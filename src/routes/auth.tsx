@@ -10,7 +10,15 @@ import { toast } from "sonner";
 const searchSchema = z.object({
   mode: z.enum(["signin", "signup"]).optional().default("signin"),
   redirect: z.string().optional(),
+  next: z.string().optional(),
 });
+
+// Only allow same-origin relative paths as post-auth return targets.
+function safeNext(next: string | undefined): string | null {
+  if (!next) return null;
+  if (!next.startsWith("/") || next.startsWith("//")) return null;
+  return next;
+}
 
 export const Route = createFileRoute("/auth")({
   validateSearch: searchSchema,
