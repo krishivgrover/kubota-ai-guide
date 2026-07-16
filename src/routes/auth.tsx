@@ -181,8 +181,7 @@ function SignInForm({ onSuccess }: { onSuccess: () => void }) {
   );
 }
 
-function SignUpForm() {
-  const navigate = useNavigate();
+function SignUpForm({ onSuccess, next }: { onSuccess: () => void; next: string | null }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -195,11 +194,14 @@ function SignUpForm() {
       onSubmit={async (e) => {
         e.preventDefault();
         setLoading(true);
+        const emailRedirectTo = next
+          ? `${window.location.origin}/auth?next=${encodeURIComponent(next)}`
+          : window.location.origin;
         const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo,
             data: { full_name: fullName, role },
           },
         });
@@ -209,7 +211,7 @@ function SignUpForm() {
           return;
         }
         toast.success("Account created — you can sign in now.");
-        navigate({ to: "/dashboard" });
+        onSuccess();
       }}
     >
       <Field icon={UserIcon} label="Full name" type="text" value={fullName} onChange={setFullName} required />
