@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      dealers: {
+        Row: {
+          address: string | null
+          city: string
+          created_at: string
+          email: string | null
+          id: string
+          latitude: number | null
+          longitude: number | null
+          name: string
+          phone: string | null
+          region: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          city: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          phone?: string | null
+          region: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          city?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          phone?: string | null
+          region?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       document_chunks: {
         Row: {
           chunk_index: number
@@ -96,6 +138,44 @@ export type Database = {
           uploaded_by?: string | null
         }
         Relationships: []
+      }
+      maintenance_schedules: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          interval_hours: number
+          notes: string | null
+          task: string
+          tractor_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          interval_hours: number
+          notes?: string | null
+          task: string
+          tractor_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          interval_hours?: number
+          notes?: string | null
+          task?: string
+          tractor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "maintenance_schedules_tractor_id_fkey"
+            columns: ["tractor_id"]
+            isOneToOne: false
+            referencedRelation: "tractors"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -231,6 +311,48 @@ export type Database = {
         }
         Relationships: []
       }
+      tractors: {
+        Row: {
+          brand: string
+          created_at: string
+          description: string | null
+          fuel_type: string
+          hp: number
+          id: string
+          image_url: string | null
+          model: string
+          price_inr: number | null
+          updated_at: string
+          use_cases: string[]
+        }
+        Insert: {
+          brand: string
+          created_at?: string
+          description?: string | null
+          fuel_type?: string
+          hp: number
+          id?: string
+          image_url?: string | null
+          model: string
+          price_inr?: number | null
+          updated_at?: string
+          use_cases?: string[]
+        }
+        Update: {
+          brand?: string
+          created_at?: string
+          description?: string | null
+          fuel_type?: string
+          hp?: number
+          id?: string
+          image_url?: string | null
+          model?: string
+          price_inr?: number | null
+          updated_at?: string
+          use_cases?: string[]
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -251,6 +373,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      warranties: {
+        Row: {
+          coverage: string | null
+          created_at: string
+          customer_id: string
+          id: string
+          purchase_date: string
+          serial_number: string
+          tractor_id: string | null
+          updated_at: string
+          warranty_end: string
+        }
+        Insert: {
+          coverage?: string | null
+          created_at?: string
+          customer_id: string
+          id?: string
+          purchase_date: string
+          serial_number: string
+          tractor_id?: string | null
+          updated_at?: string
+          warranty_end: string
+        }
+        Update: {
+          coverage?: string | null
+          created_at?: string
+          customer_id?: string
+          id?: string
+          purchase_date?: string
+          serial_number?: string
+          tractor_id?: string | null
+          updated_at?: string
+          warranty_end?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "warranties_tractor_id_fkey"
+            columns: ["tractor_id"]
+            isOneToOne: false
+            referencedRelation: "tractors"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
