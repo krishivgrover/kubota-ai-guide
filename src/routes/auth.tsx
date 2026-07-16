@@ -119,15 +119,20 @@ function AuthPage() {
             <button
               type="button"
               onClick={async () => {
+                // Ask Google to return to /auth with the same next=, so the
+                // beforeLoad above forwards to the consent URL after session hydrates.
+                const returnUrl = next
+                  ? `${window.location.origin}/auth?next=${encodeURIComponent(next)}`
+                  : window.location.origin;
                 const result = await lovable.auth.signInWithOAuth("google", {
-                  redirect_uri: window.location.origin,
+                  redirect_uri: returnUrl,
                 });
                 if (result.error) {
                   toast.error(result.error.message ?? "Google sign-in failed");
                   return;
                 }
                 if (result.redirected) return;
-                navigate({ to: "/dashboard" });
+                goPostAuth();
               }}
               className="mt-6 inline-flex h-11 w-full items-center justify-center gap-3 rounded-md border border-border bg-surface-elevated text-sm font-semibold shadow-soft transition-colors hover:bg-secondary"
             >
