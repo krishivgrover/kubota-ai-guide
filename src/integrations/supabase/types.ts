@@ -133,6 +133,104 @@ export type Database = {
         }
         Relationships: []
       }
+      ticket_messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          is_internal: boolean
+          sender_id: string
+          ticket_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          is_internal?: boolean
+          sender_id: string
+          ticket_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          is_internal?: boolean
+          sender_id?: string
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_messages_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tickets: {
+        Row: {
+          ai_priority: Database["public"]["Enums"]["ticket_priority"] | null
+          ai_summary: string | null
+          category: Database["public"]["Enums"]["ticket_category"]
+          created_at: string
+          customer_id: string
+          dealer_id: string | null
+          description: string
+          engineer_id: string | null
+          id: string
+          location: string | null
+          model: string | null
+          priority: Database["public"]["Enums"]["ticket_priority"]
+          resolved_at: string | null
+          serial_no: string | null
+          status: Database["public"]["Enums"]["ticket_status"]
+          ticket_no: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          ai_priority?: Database["public"]["Enums"]["ticket_priority"] | null
+          ai_summary?: string | null
+          category?: Database["public"]["Enums"]["ticket_category"]
+          created_at?: string
+          customer_id: string
+          dealer_id?: string | null
+          description: string
+          engineer_id?: string | null
+          id?: string
+          location?: string | null
+          model?: string | null
+          priority?: Database["public"]["Enums"]["ticket_priority"]
+          resolved_at?: string | null
+          serial_no?: string | null
+          status?: Database["public"]["Enums"]["ticket_status"]
+          ticket_no?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          ai_priority?: Database["public"]["Enums"]["ticket_priority"] | null
+          ai_summary?: string | null
+          category?: Database["public"]["Enums"]["ticket_category"]
+          created_at?: string
+          customer_id?: string
+          dealer_id?: string | null
+          description?: string
+          engineer_id?: string | null
+          id?: string
+          location?: string | null
+          model?: string | null
+          priority?: Database["public"]["Enums"]["ticket_priority"]
+          resolved_at?: string | null
+          serial_no?: string | null
+          status?: Database["public"]["Enums"]["ticket_status"]
+          ticket_no?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -159,6 +257,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_access_ticket: {
+        Args: { _ticket_id: string; _user_id: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -166,6 +268,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_staff: { Args: { _user_id: string }; Returns: boolean }
       match_document_chunks: {
         Args: { match_count?: number; query_embedding: string }
         Returns: {
@@ -181,6 +284,22 @@ export type Database = {
     Enums: {
       app_language: "en" | "hi"
       app_role: "customer" | "dealer" | "service_engineer" | "admin"
+      ticket_category:
+        | "engine"
+        | "hydraulics"
+        | "electrical"
+        | "transmission"
+        | "body"
+        | "implement"
+        | "other"
+      ticket_priority: "low" | "medium" | "high" | "critical"
+      ticket_status:
+        | "open"
+        | "triaged"
+        | "assigned"
+        | "in_progress"
+        | "resolved"
+        | "closed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -310,6 +429,24 @@ export const Constants = {
     Enums: {
       app_language: ["en", "hi"],
       app_role: ["customer", "dealer", "service_engineer", "admin"],
+      ticket_category: [
+        "engine",
+        "hydraulics",
+        "electrical",
+        "transmission",
+        "body",
+        "implement",
+        "other",
+      ],
+      ticket_priority: ["low", "medium", "high", "critical"],
+      ticket_status: [
+        "open",
+        "triaged",
+        "assigned",
+        "in_progress",
+        "resolved",
+        "closed",
+      ],
     },
   },
 } as const
