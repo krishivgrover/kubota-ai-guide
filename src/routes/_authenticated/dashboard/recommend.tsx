@@ -115,31 +115,177 @@ function RecommenderTab() {
 
 // ------------- EMI -------------
 function EmiTab() {
+  const listT = useServerFn(listTractors);
+  const [tractors, setTractors] = useState<Tractor[]>([]);
+  useEffect(() => { listT().then((r: any) => setTractors(r ?? [])); }, [listT]);
+
+  const [tractorId, setTractorId] = useState<string>("");
   const [price, setPrice] = useState(800000);
-  const [down, setDown] = useState(150000);
+  const [downPct, setDownPct] = useState(20); // percentage
   const [rate, setRate] = useState(9.5);
-  const [years, setYears] = useState(5);
+  const [months, setMonths] = useState(60);
+  const [processingPct, setProcessingPct] = useState(1);
+  const [showSchedule, setShowSchedule] = useState(false);
+
+  // Prefill price when a tractor is selected
+  useEffect(() => {
+    const t = tractors.find((x) => x.id === tractorId);
+    if (t?.price_inr) setPrice(t.price_inr);
+  }, [tractorId, tractors]);
+
+  const down = Math.round((price * downPct) / 100);
   const principal = Math.max(0, price - down);
+  const processingFee = Math.round((principal * processingPct) / 100);
   const r = rate / 12 / 100;
-  const n = years * 12;
-  const emi = r === 0 ? principal / n : (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+  const n = months;
+  const emi = n === 0 ? 0 : r === 0 ? principal / n : (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
   const total = emi * n;
   const interest = total - principal;
+  const totalCost = total + down + processingFee;
+
+  // Amortization
+  const schedule = useMemo(() => {
+    const rows: { month: number; emi: number; interest: number; principal: number; balance: number }[] = [];
+    let bal = principal;
+    for (let i = 1; i <= n && bal > 0; i++) {
+      const int = bal * r;
+      const prin = Math.min(bal, emi - int);
+      bal = Math.max(0, bal - prin);
+      rows.push({ month: i, emi, interest: int, principal: prin, balance: bal });
+    }
+    return rows;
+  }, [principal, emi, r, n]);
+
+  // Tenure comparison
+  const tenures = [24, 36, 48, 60, 72, 84];
+  const compare = tenures.map((m) => {
+    const e = r === 0 ? principal / m : (principal * r * Math.pow(1 + r, m)) / (Math.pow(1 + r, m) - 1);
+    return { m, emi: e, total: e * m, interest: e * m - principal };
+  });
+
+  const fmt = (v: number) => `₹${Math.round(v).toLocaleString("en-IN")}`;
+
   return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <div className="rounded-xl border bg-card p-6 space-y-4">
-        <h3 className="font-display text-lg font-semibold">EMI Calculator</h3>
-        <div><Label>Tractor price (₹)</Label><Input type="number" value={price} onChange={(e)=>setPrice(+e.target.value)}/></div>
-        <div><Label>Down payment (₹)</Label><Input type="number" value={down} onChange={(e)=>setDown(+e.target.value)}/></div>
-        <div><Label>Interest rate (% p.a.)</Label><Input type="number" step="0.1" value={rate} onChange={(e)=>setRate(+e.target.value)}/></div>
-        <div><Label>Tenure (years)</Label><Input type="number" value={years} onChange={(e)=>setYears(+e.target.value)}/></div>
+    <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="rounded-xl border bg-card p-6 space-y-4">
+          <h3 className="font-display text-lg font-semibold">Loan details</h3>
+
+          <div>
+            <Label>Tractor model</Label>
+            <Select value={tractorId} onValueChange={setTractorId}>
+              <SelectTrigger><SelectValue placeholder="Pick a model or enter price manually" /></SelectTrigger>
+              <SelectContent>
+                {tractors.map((t) => (
+                  <SelectItem key={t.id} value={t.id}>
+                    {t.brand} {t.model} — {t.hp} HP {t.price_inr ? `· ₹${(t.price_inr/100000).toFixed(1)}L` : ""}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <Label>On-road price (₹)</Label>
+            <Input type="number" value={price} onChange={(e) => setPrice(+e.target.value)} />
+          </div>
+
+          <div>
+            <div className="flex justify-between text-sm"><Label>Down payment</Label><span className="text-muted-foreground">{downPct}% · {fmt(down)}</span></div>
+            <input type="range" min={0} max={80} step={5} value={downPct} onChange={(e) => setDownPct(+e.target.value)} className="w-full accent-primary" />
+          </div>
+
+          <div>
+            <div className="flex justify-between text-sm"><Label>Tenure</Label><span className="text-muted-foreground">{months} months · {(months/12).toFixed(1)} yrs</span></div>
+            <input type="range" min={12} max={84} step={6} value={months} onChange={(e) => setMonths(+e.target.value)} className="w-full accent-primary" />
+          </div>
+
+          <div>
+            <div className="flex justify-between text-sm"><Label>Interest rate</Label><span className="text-muted-foreground">{rate.toFixed(2)}% p.a.</span></div>
+            <input type="range" min={5} max={18} step={0.25} value={rate} onChange={(e) => setRate(+e.target.value)} className="w-full accent-primary" />
+          </div>
+
+          <div>
+            <Label>Processing fee (% of loan)</Label>
+            <Input type="number" step="0.1" value={processingPct} onChange={(e) => setProcessingPct(+e.target.value)} />
+          </div>
+        </div>
+
+        <div className="rounded-xl border bg-card p-6 space-y-3">
+          <h3 className="font-display text-lg font-semibold">Your EMI</h3>
+          <div className="rounded-lg bg-primary/10 p-4">
+            <div className="text-xs uppercase text-muted-foreground">Monthly EMI</div>
+            <div className="font-display text-3xl font-bold text-primary">{fmt(emi)}</div>
+          </div>
+          <Row label="Loan principal" value={fmt(principal)} />
+          <Row label="Total interest" value={fmt(interest)} />
+          <Row label="Processing fee" value={fmt(processingFee)} />
+          <Row label="Total loan payout" value={fmt(total)} />
+          <Row label="Total cost of ownership" value={fmt(totalCost)} highlight />
+
+          {/* Split bar */}
+          <div>
+            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-muted">
+              <div className="h-full bg-primary" style={{ width: `${(principal/(total||1))*100}%` }} />
+            </div>
+            <div className="mt-1 flex justify-between text-[11px] text-muted-foreground">
+              <span>■ Principal {((principal/(total||1))*100).toFixed(0)}%</span>
+              <span>■ Interest {((interest/(total||1))*100).toFixed(0)}%</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="rounded-xl border bg-card p-6 space-y-4">
-        <h3 className="font-display text-lg font-semibold">Your EMI</h3>
-        <Row label="Monthly EMI" value={`₹${emi.toLocaleString("en-IN",{maximumFractionDigits:0})}`} highlight/>
-        <Row label="Loan principal" value={`₹${principal.toLocaleString("en-IN")}`}/>
-        <Row label="Total interest" value={`₹${interest.toLocaleString("en-IN",{maximumFractionDigits:0})}`}/>
-        <Row label="Total payment" value={`₹${total.toLocaleString("en-IN",{maximumFractionDigits:0})}`}/>
+
+      {/* Tenure comparison */}
+      <div className="rounded-xl border bg-card p-6">
+        <h3 className="font-display text-lg font-semibold mb-3">Compare tenures @ {rate}% p.a.</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="text-xs uppercase text-muted-foreground">
+              <tr><th className="text-left py-2">Tenure</th><th className="text-right">Monthly EMI</th><th className="text-right">Total interest</th><th className="text-right">Total payment</th></tr>
+            </thead>
+            <tbody>
+              {compare.map((c) => (
+                <tr key={c.m} className={"border-t " + (c.m === months ? "bg-primary/5 font-semibold" : "")}>
+                  <td className="py-2">{c.m} mo ({(c.m/12).toFixed(1)} yrs)</td>
+                  <td className="text-right">{fmt(c.emi)}</td>
+                  <td className="text-right">{fmt(c.interest)}</td>
+                  <td className="text-right">{fmt(c.total)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Amortization */}
+      <div className="rounded-xl border bg-card p-6">
+        <div className="flex items-center justify-between">
+          <h3 className="font-display text-lg font-semibold">Amortization schedule</h3>
+          <Button variant="outline" size="sm" onClick={() => setShowSchedule((s) => !s)}>
+            {showSchedule ? "Hide" : "Show"} full schedule
+          </Button>
+        </div>
+        {showSchedule && (
+          <div className="mt-3 max-h-96 overflow-y-auto">
+            <table className="w-full text-sm">
+              <thead className="sticky top-0 bg-card text-xs uppercase text-muted-foreground">
+                <tr><th className="text-left py-2">Month</th><th className="text-right">EMI</th><th className="text-right">Interest</th><th className="text-right">Principal</th><th className="text-right">Balance</th></tr>
+              </thead>
+              <tbody>
+                {schedule.map((s) => (
+                  <tr key={s.month} className="border-t">
+                    <td className="py-1.5">{s.month}</td>
+                    <td className="text-right">{fmt(s.emi)}</td>
+                    <td className="text-right text-muted-foreground">{fmt(s.interest)}</td>
+                    <td className="text-right">{fmt(s.principal)}</td>
+                    <td className="text-right font-medium">{fmt(s.balance)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
