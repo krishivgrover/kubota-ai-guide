@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: escorts-kubota-ai-assistant
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/escorts_kubota}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  ai:
+    openai:
+      base-url: https://ai.gateway.lovable.dev
+      api-key: ${LOVABLE_API_KEY:}
+      chat:
+        options:
+          model: google/gemini-3-flash-preview
+          temperature: 0.2
+      embedding:
+        options:
+          model: google/gemini-embedding-001
+
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=10m
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+  error:
+    include-message: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+app:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-change-me-change-me}
+      expiration-minutes: ${JWT_EXPIRATION_MINUTES:60}
+    cors:
+      allowed-origins:
+        - http://localhost:5173
+        - http://localhost:8080
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.escortskubota: DEBUG
