@@ -145,7 +145,7 @@ function AuthPage() {
               <span className="h-px flex-1 bg-border" />
             </div>
 
-            {mode === "signin" ? <SignInForm /> : <SignUpForm />}
+            {mode === "signin" ? <SignInForm onSuccess={goPostAuth} /> : <SignUpForm onSuccess={goPostAuth} next={next} />}
           </div>
         </main>
       </div>
