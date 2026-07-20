@@ -25,6 +25,7 @@ import { Route as AuthenticatedDashboardUsersRouteImport } from './routes/_authe
 import { Route as AuthenticatedDashboardRecommendRouteImport } from './routes/_authenticated/dashboard/recommend'
 import { Route as AuthenticatedDashboardKnowledgeRouteImport } from './routes/_authenticated/dashboard/knowledge'
 import { Route as AuthenticatedDashboardEngineerRouteImport } from './routes/_authenticated/dashboard/engineer'
+import { Route as AuthenticatedDashboardDiagnoseRouteImport } from './routes/_authenticated/dashboard/diagnose'
 import { Route as AuthenticatedDashboardDealerRouteImport } from './routes/_authenticated/dashboard/dealer'
 import { Route as AuthenticatedDashboardCustomerRouteImport } from './routes/_authenticated/dashboard/customer'
 import { Route as AuthenticatedDashboardComplaintsRouteImport } from './routes/_authenticated/dashboard/complaints'
@@ -120,6 +121,12 @@ const AuthenticatedDashboardEngineerRoute =
     path: '/dashboard/engineer',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDashboardDiagnoseRoute =
+  AuthenticatedDashboardDiagnoseRouteImport.update({
+    id: '/dashboard/diagnose',
+    path: '/dashboard/diagnose',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardDealerRoute =
   AuthenticatedDashboardDealerRouteImport.update({
     id: '/dashboard/dealer',
@@ -187,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/complaints': typeof AuthenticatedDashboardComplaintsRoute
   '/dashboard/customer': typeof AuthenticatedDashboardCustomerRoute
   '/dashboard/dealer': typeof AuthenticatedDashboardDealerRoute
+  '/dashboard/diagnose': typeof AuthenticatedDashboardDiagnoseRoute
   '/dashboard/engineer': typeof AuthenticatedDashboardEngineerRoute
   '/dashboard/knowledge': typeof AuthenticatedDashboardKnowledgeRoute
   '/dashboard/recommend': typeof AuthenticatedDashboardRecommendRoute
@@ -212,6 +220,7 @@ export interface FileRoutesByTo {
   '/dashboard/complaints': typeof AuthenticatedDashboardComplaintsRoute
   '/dashboard/customer': typeof AuthenticatedDashboardCustomerRoute
   '/dashboard/dealer': typeof AuthenticatedDashboardDealerRoute
+  '/dashboard/diagnose': typeof AuthenticatedDashboardDiagnoseRoute
   '/dashboard/engineer': typeof AuthenticatedDashboardEngineerRoute
   '/dashboard/knowledge': typeof AuthenticatedDashboardKnowledgeRoute
   '/dashboard/recommend': typeof AuthenticatedDashboardRecommendRoute
@@ -239,6 +248,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/complaints': typeof AuthenticatedDashboardComplaintsRoute
   '/_authenticated/dashboard/customer': typeof AuthenticatedDashboardCustomerRoute
   '/_authenticated/dashboard/dealer': typeof AuthenticatedDashboardDealerRoute
+  '/_authenticated/dashboard/diagnose': typeof AuthenticatedDashboardDiagnoseRoute
   '/_authenticated/dashboard/engineer': typeof AuthenticatedDashboardEngineerRoute
   '/_authenticated/dashboard/knowledge': typeof AuthenticatedDashboardKnowledgeRoute
   '/_authenticated/dashboard/recommend': typeof AuthenticatedDashboardRecommendRoute
@@ -266,6 +276,7 @@ export interface FileRouteTypes {
     | '/dashboard/complaints'
     | '/dashboard/customer'
     | '/dashboard/dealer'
+    | '/dashboard/diagnose'
     | '/dashboard/engineer'
     | '/dashboard/knowledge'
     | '/dashboard/recommend'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '/dashboard/complaints'
     | '/dashboard/customer'
     | '/dashboard/dealer'
+    | '/dashboard/diagnose'
     | '/dashboard/engineer'
     | '/dashboard/knowledge'
     | '/dashboard/recommend'
@@ -317,6 +329,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/complaints'
     | '/_authenticated/dashboard/customer'
     | '/_authenticated/dashboard/dealer'
+    | '/_authenticated/dashboard/diagnose'
     | '/_authenticated/dashboard/engineer'
     | '/_authenticated/dashboard/knowledge'
     | '/_authenticated/dashboard/recommend'
@@ -454,6 +467,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardEngineerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dashboard/diagnose': {
+      id: '/_authenticated/dashboard/diagnose'
+      path: '/dashboard/diagnose'
+      fullPath: '/dashboard/diagnose'
+      preLoaderRoute: typeof AuthenticatedDashboardDiagnoseRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard/dealer': {
       id: '/_authenticated/dashboard/dealer'
       path: '/dashboard/dealer'
@@ -520,6 +540,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardComplaintsRoute: typeof AuthenticatedDashboardComplaintsRoute
   AuthenticatedDashboardCustomerRoute: typeof AuthenticatedDashboardCustomerRoute
   AuthenticatedDashboardDealerRoute: typeof AuthenticatedDashboardDealerRoute
+  AuthenticatedDashboardDiagnoseRoute: typeof AuthenticatedDashboardDiagnoseRoute
   AuthenticatedDashboardEngineerRoute: typeof AuthenticatedDashboardEngineerRoute
   AuthenticatedDashboardKnowledgeRoute: typeof AuthenticatedDashboardKnowledgeRoute
   AuthenticatedDashboardRecommendRoute: typeof AuthenticatedDashboardRecommendRoute
@@ -535,6 +556,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardComplaintsRoute: AuthenticatedDashboardComplaintsRoute,
   AuthenticatedDashboardCustomerRoute: AuthenticatedDashboardCustomerRoute,
   AuthenticatedDashboardDealerRoute: AuthenticatedDashboardDealerRoute,
+  AuthenticatedDashboardDiagnoseRoute: AuthenticatedDashboardDiagnoseRoute,
   AuthenticatedDashboardEngineerRoute: AuthenticatedDashboardEngineerRoute,
   AuthenticatedDashboardKnowledgeRoute: AuthenticatedDashboardKnowledgeRoute,
   AuthenticatedDashboardRecommendRoute: AuthenticatedDashboardRecommendRoute,
