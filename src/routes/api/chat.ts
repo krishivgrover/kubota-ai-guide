@@ -91,8 +91,12 @@ export const Route = createFileRoute("/api/chat")({
             }
           }
 
+          const langCode = (request.headers.get("x-lang") || "en").toLowerCase();
+          const langName = LANG_NAMES[langCode] || "English";
+
           const systemWithContext =
             SYSTEM +
+            `\n\nAlways reply in ${langName}. Use natural, respectful phrasing appropriate for tractor owners and technicians.` +
             (contextBlock
               ? `\n\n---\nRetrieved context from manuals:\n\n${contextBlock}`
               : "\n\n---\n(No matching manual context found for this query.)");
