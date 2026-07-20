@@ -47,6 +47,7 @@ function ChatWindow() {
   const chunksRef = useRef<Blob[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const spokenIdsRef = useRef<Set<string>>(new Set());
+  const { lang, t } = useLang();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setToken(data.session?.access_token ?? null));
@@ -56,8 +57,11 @@ function ChatWindow() {
 
   const transport = useMemo(() => {
     if (!token) return undefined;
-    return new DefaultChatTransport({ api: "/api/chat", headers: { Authorization: `Bearer ${token}` } });
-  }, [token]);
+    return new DefaultChatTransport({
+      api: "/api/chat",
+      headers: { Authorization: `Bearer ${token}`, "X-Lang": lang },
+    });
+  }, [token, lang]);
 
   const { messages, sendMessage, status, error } = useChat({
     transport,
