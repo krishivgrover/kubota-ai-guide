@@ -16,6 +16,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiTtsRouteImport } from './routes/api/tts'
 import { Route as ApiSttRouteImport } from './routes/api/stt'
+import { Route as ApiDiagnoseRouteImport } from './routes/api/diagnose'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -24,11 +25,13 @@ import { Route as AuthenticatedDashboardUsersRouteImport } from './routes/_authe
 import { Route as AuthenticatedDashboardRecommendRouteImport } from './routes/_authenticated/dashboard/recommend'
 import { Route as AuthenticatedDashboardKnowledgeRouteImport } from './routes/_authenticated/dashboard/knowledge'
 import { Route as AuthenticatedDashboardEngineerRouteImport } from './routes/_authenticated/dashboard/engineer'
+import { Route as AuthenticatedDashboardDiagnoseRouteImport } from './routes/_authenticated/dashboard/diagnose'
 import { Route as AuthenticatedDashboardDealerRouteImport } from './routes/_authenticated/dashboard/dealer'
 import { Route as AuthenticatedDashboardCustomerRouteImport } from './routes/_authenticated/dashboard/customer'
 import { Route as AuthenticatedDashboardComplaintsRouteImport } from './routes/_authenticated/dashboard/complaints'
 import { Route as AuthenticatedDashboardChatRouteImport } from './routes/_authenticated/dashboard/chat'
 import { Route as AuthenticatedDashboardAppointmentsRouteImport } from './routes/_authenticated/dashboard/appointments'
+import { Route as AuthenticatedDashboardAnalyticsRouteImport } from './routes/_authenticated/dashboard/analytics'
 import { Route as AuthenticatedDashboardAdminRouteImport } from './routes/_authenticated/dashboard/admin'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -65,6 +68,11 @@ const ApiTtsRoute = ApiTtsRouteImport.update({
 const ApiSttRoute = ApiSttRouteImport.update({
   id: '/api/stt',
   path: '/api/stt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDiagnoseRoute = ApiDiagnoseRouteImport.update({
+  id: '/api/diagnose',
+  path: '/api/diagnose',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
@@ -114,6 +122,12 @@ const AuthenticatedDashboardEngineerRoute =
     path: '/dashboard/engineer',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDashboardDiagnoseRoute =
+  AuthenticatedDashboardDiagnoseRouteImport.update({
+    id: '/dashboard/diagnose',
+    path: '/dashboard/diagnose',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardDealerRoute =
   AuthenticatedDashboardDealerRouteImport.update({
     id: '/dashboard/dealer',
@@ -144,6 +158,12 @@ const AuthenticatedDashboardAppointmentsRoute =
     path: '/dashboard/appointments',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDashboardAnalyticsRoute =
+  AuthenticatedDashboardAnalyticsRouteImport.update({
+    id: '/dashboard/analytics',
+    path: '/dashboard/analytics',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardAdminRoute =
   AuthenticatedDashboardAdminRouteImport.update({
     id: '/dashboard/admin',
@@ -170,16 +190,19 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/diagnose': typeof ApiDiagnoseRoute
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/dashboard/admin': typeof AuthenticatedDashboardAdminRoute
+  '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/dashboard/appointments': typeof AuthenticatedDashboardAppointmentsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/complaints': typeof AuthenticatedDashboardComplaintsRoute
   '/dashboard/customer': typeof AuthenticatedDashboardCustomerRoute
   '/dashboard/dealer': typeof AuthenticatedDashboardDealerRoute
+  '/dashboard/diagnose': typeof AuthenticatedDashboardDiagnoseRoute
   '/dashboard/engineer': typeof AuthenticatedDashboardEngineerRoute
   '/dashboard/knowledge': typeof AuthenticatedDashboardKnowledgeRoute
   '/dashboard/recommend': typeof AuthenticatedDashboardRecommendRoute
@@ -194,16 +217,19 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/diagnose': typeof ApiDiagnoseRoute
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/dashboard/admin': typeof AuthenticatedDashboardAdminRoute
+  '/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/dashboard/appointments': typeof AuthenticatedDashboardAppointmentsRoute
   '/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/dashboard/complaints': typeof AuthenticatedDashboardComplaintsRoute
   '/dashboard/customer': typeof AuthenticatedDashboardCustomerRoute
   '/dashboard/dealer': typeof AuthenticatedDashboardDealerRoute
+  '/dashboard/diagnose': typeof AuthenticatedDashboardDiagnoseRoute
   '/dashboard/engineer': typeof AuthenticatedDashboardEngineerRoute
   '/dashboard/knowledge': typeof AuthenticatedDashboardKnowledgeRoute
   '/dashboard/recommend': typeof AuthenticatedDashboardRecommendRoute
@@ -220,16 +246,19 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/diagnose': typeof ApiDiagnoseRoute
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/_authenticated/dashboard/admin': typeof AuthenticatedDashboardAdminRoute
+  '/_authenticated/dashboard/analytics': typeof AuthenticatedDashboardAnalyticsRoute
   '/_authenticated/dashboard/appointments': typeof AuthenticatedDashboardAppointmentsRoute
   '/_authenticated/dashboard/chat': typeof AuthenticatedDashboardChatRoute
   '/_authenticated/dashboard/complaints': typeof AuthenticatedDashboardComplaintsRoute
   '/_authenticated/dashboard/customer': typeof AuthenticatedDashboardCustomerRoute
   '/_authenticated/dashboard/dealer': typeof AuthenticatedDashboardDealerRoute
+  '/_authenticated/dashboard/diagnose': typeof AuthenticatedDashboardDiagnoseRoute
   '/_authenticated/dashboard/engineer': typeof AuthenticatedDashboardEngineerRoute
   '/_authenticated/dashboard/knowledge': typeof AuthenticatedDashboardKnowledgeRoute
   '/_authenticated/dashboard/recommend': typeof AuthenticatedDashboardRecommendRoute
@@ -246,16 +275,19 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/chat'
+    | '/api/diagnose'
     | '/api/stt'
     | '/api/tts'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/dashboard/admin'
+    | '/dashboard/analytics'
     | '/dashboard/appointments'
     | '/dashboard/chat'
     | '/dashboard/complaints'
     | '/dashboard/customer'
     | '/dashboard/dealer'
+    | '/dashboard/diagnose'
     | '/dashboard/engineer'
     | '/dashboard/knowledge'
     | '/dashboard/recommend'
@@ -270,16 +302,19 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/chat'
+    | '/api/diagnose'
     | '/api/stt'
     | '/api/tts'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/dashboard/admin'
+    | '/dashboard/analytics'
     | '/dashboard/appointments'
     | '/dashboard/chat'
     | '/dashboard/complaints'
     | '/dashboard/customer'
     | '/dashboard/dealer'
+    | '/dashboard/diagnose'
     | '/dashboard/engineer'
     | '/dashboard/knowledge'
     | '/dashboard/recommend'
@@ -295,16 +330,19 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/chat'
+    | '/api/diagnose'
     | '/api/stt'
     | '/api/tts'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/_authenticated/dashboard/admin'
+    | '/_authenticated/dashboard/analytics'
     | '/_authenticated/dashboard/appointments'
     | '/_authenticated/dashboard/chat'
     | '/_authenticated/dashboard/complaints'
     | '/_authenticated/dashboard/customer'
     | '/_authenticated/dashboard/dealer'
+    | '/_authenticated/dashboard/diagnose'
     | '/_authenticated/dashboard/engineer'
     | '/_authenticated/dashboard/knowledge'
     | '/_authenticated/dashboard/recommend'
@@ -321,6 +359,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiDiagnoseRoute: typeof ApiDiagnoseRoute
   ApiSttRoute: typeof ApiSttRoute
   ApiTtsRoute: typeof ApiTtsRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
@@ -376,6 +415,13 @@ declare module '@tanstack/react-router' {
       path: '/api/stt'
       fullPath: '/api/stt'
       preLoaderRoute: typeof ApiSttRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/diagnose': {
+      id: '/api/diagnose'
+      path: '/api/diagnose'
+      fullPath: '/api/diagnose'
+      preLoaderRoute: typeof ApiDiagnoseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
@@ -434,6 +480,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardEngineerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dashboard/diagnose': {
+      id: '/_authenticated/dashboard/diagnose'
+      path: '/dashboard/diagnose'
+      fullPath: '/dashboard/diagnose'
+      preLoaderRoute: typeof AuthenticatedDashboardDiagnoseRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard/dealer': {
       id: '/_authenticated/dashboard/dealer'
       path: '/dashboard/dealer'
@@ -469,6 +522,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardAppointmentsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dashboard/analytics': {
+      id: '/_authenticated/dashboard/analytics'
+      path: '/dashboard/analytics'
+      fullPath: '/dashboard/analytics'
+      preLoaderRoute: typeof AuthenticatedDashboardAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard/admin': {
       id: '/_authenticated/dashboard/admin'
       path: '/dashboard/admin'
@@ -495,11 +555,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardAdminRoute: typeof AuthenticatedDashboardAdminRoute
+  AuthenticatedDashboardAnalyticsRoute: typeof AuthenticatedDashboardAnalyticsRoute
   AuthenticatedDashboardAppointmentsRoute: typeof AuthenticatedDashboardAppointmentsRoute
   AuthenticatedDashboardChatRoute: typeof AuthenticatedDashboardChatRoute
   AuthenticatedDashboardComplaintsRoute: typeof AuthenticatedDashboardComplaintsRoute
   AuthenticatedDashboardCustomerRoute: typeof AuthenticatedDashboardCustomerRoute
   AuthenticatedDashboardDealerRoute: typeof AuthenticatedDashboardDealerRoute
+  AuthenticatedDashboardDiagnoseRoute: typeof AuthenticatedDashboardDiagnoseRoute
   AuthenticatedDashboardEngineerRoute: typeof AuthenticatedDashboardEngineerRoute
   AuthenticatedDashboardKnowledgeRoute: typeof AuthenticatedDashboardKnowledgeRoute
   AuthenticatedDashboardRecommendRoute: typeof AuthenticatedDashboardRecommendRoute
@@ -509,12 +571,14 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardAdminRoute: AuthenticatedDashboardAdminRoute,
+  AuthenticatedDashboardAnalyticsRoute: AuthenticatedDashboardAnalyticsRoute,
   AuthenticatedDashboardAppointmentsRoute:
     AuthenticatedDashboardAppointmentsRoute,
   AuthenticatedDashboardChatRoute: AuthenticatedDashboardChatRoute,
   AuthenticatedDashboardComplaintsRoute: AuthenticatedDashboardComplaintsRoute,
   AuthenticatedDashboardCustomerRoute: AuthenticatedDashboardCustomerRoute,
   AuthenticatedDashboardDealerRoute: AuthenticatedDashboardDealerRoute,
+  AuthenticatedDashboardDiagnoseRoute: AuthenticatedDashboardDiagnoseRoute,
   AuthenticatedDashboardEngineerRoute: AuthenticatedDashboardEngineerRoute,
   AuthenticatedDashboardKnowledgeRoute: AuthenticatedDashboardKnowledgeRoute,
   AuthenticatedDashboardRecommendRoute: AuthenticatedDashboardRecommendRoute,
@@ -535,6 +599,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiDiagnoseRoute: ApiDiagnoseRoute,
   ApiSttRoute: ApiSttRoute,
   ApiTtsRoute: ApiTtsRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,

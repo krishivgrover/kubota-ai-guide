@@ -5,6 +5,14 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 type Body = { messages?: UIMessage[] };
 
+const LANG_NAMES: Record<string, string> = {
+  en: "English",
+  hi: "Hindi (हिन्दी)",
+  mr: "Marathi (मराठी)",
+  pa: "Punjabi (ਪੰਜਾਬੀ)",
+  ta: "Tamil (தமிழ்)",
+};
+
 const SYSTEM = `You are the Escorts Kubota AI Service Assistant.
 
 You help customers, dealers, and service engineers with:
@@ -17,7 +25,7 @@ Rules:
 - If the context is empty or off-topic, say so briefly and answer from general knowledge while noting it is not from the manual.
 - Prefer numbered steps for procedures. Include torque values, part numbers, and safety warnings verbatim when they appear.
 - Never invent part numbers, model specs, or warranty terms.
-- Keep answers concise but complete. Reply in the user's language (English / Hindi).`;
+- Keep answers concise but complete.`;
 
 async function extractLastUserText(messages: UIMessage[]): Promise<string> {
   const last = [...messages].reverse().find((m) => m.role === "user");
@@ -83,8 +91,12 @@ export const Route = createFileRoute("/api/chat")({
             }
           }
 
+          const langCode = (request.headers.get("x-lang") || "en").toLowerCase();
+          const langName = LANG_NAMES[langCode] || "English";
+
           const systemWithContext =
             SYSTEM +
+            `\n\nAlways reply in ${langName}. Use natural, respectful phrasing appropriate for tractor owners and technicians.` +
             (contextBlock
               ? `\n\n---\nRetrieved context from manuals:\n\n${contextBlock}`
               : "\n\n---\n(No matching manual context found for this query.)");
