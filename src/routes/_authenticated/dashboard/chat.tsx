@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Bot, Send, User, Loader2, Construction, Mic, MicOff, Volume2, VolumeX } from "lucide-react";
+import { useLang, LANG_LABEL } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_authenticated/dashboard/chat")({
   head: () => ({ meta: [{ title: "AI Assistant · Escorts Kubota AI" }] }),
