@@ -16,6 +16,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiTtsRouteImport } from './routes/api/tts'
 import { Route as ApiSttRouteImport } from './routes/api/stt'
+import { Route as ApiDiagnoseRouteImport } from './routes/api/diagnose'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -65,6 +66,11 @@ const ApiTtsRoute = ApiTtsRouteImport.update({
 const ApiSttRoute = ApiSttRouteImport.update({
   id: '/api/stt',
   path: '/api/stt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDiagnoseRoute = ApiDiagnoseRouteImport.update({
+  id: '/api/diagnose',
+  path: '/api/diagnose',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
@@ -170,6 +176,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/diagnose': typeof ApiDiagnoseRoute
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -194,6 +201,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/diagnose': typeof ApiDiagnoseRoute
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -220,6 +228,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/diagnose': typeof ApiDiagnoseRoute
   '/api/stt': typeof ApiSttRoute
   '/api/tts': typeof ApiTtsRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -246,6 +255,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/chat'
+    | '/api/diagnose'
     | '/api/stt'
     | '/api/tts'
     | '/.lovable/oauth/consent'
@@ -270,6 +280,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/chat'
+    | '/api/diagnose'
     | '/api/stt'
     | '/api/tts'
     | '/.lovable/oauth/consent'
@@ -295,6 +306,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/chat'
+    | '/api/diagnose'
     | '/api/stt'
     | '/api/tts'
     | '/.lovable/oauth/consent'
@@ -321,6 +333,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiDiagnoseRoute: typeof ApiDiagnoseRoute
   ApiSttRoute: typeof ApiSttRoute
   ApiTtsRoute: typeof ApiTtsRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
@@ -376,6 +389,13 @@ declare module '@tanstack/react-router' {
       path: '/api/stt'
       fullPath: '/api/stt'
       preLoaderRoute: typeof ApiSttRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/diagnose': {
+      id: '/api/diagnose'
+      path: '/api/diagnose'
+      fullPath: '/api/diagnose'
+      preLoaderRoute: typeof ApiDiagnoseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
@@ -535,6 +555,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiDiagnoseRoute: ApiDiagnoseRoute,
   ApiSttRoute: ApiSttRoute,
   ApiTtsRoute: ApiTtsRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
