@@ -19,8 +19,10 @@ export const listTractors = createServerFn({ method: "GET" })
 export const listDealers = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
+    // Non-staff users only see the contact-free dealer directory (no email/phone).
+    // Full rows including contact info are restricted to staff by RLS on the base table.
     const { data, error } = await context.supabase
-      .from("dealers")
+      .from("dealers_directory")
       .select("*")
       .order("region");
     if (error) throw new Error(error.message);
