@@ -25,7 +25,7 @@ export const Route = createFileRoute("/_authenticated/dashboard/recommend")({
 });
 
 type Tractor = { id: string; brand: string; model: string; hp: number; price_inr: number | null; use_cases: string[]; description: string | null };
-type Dealer = { id: string; name: string; region: string; city: string; address: string | null; phone: string | null; latitude: number | null; longitude: number | null };
+type Dealer = { id: string; name: string; region: string; city: string; address: string | null; phone?: string | null; latitude: number | null; longitude: number | null };
 
 function ToolsPage() {
   return (
@@ -399,7 +399,7 @@ function DealersTab() {
   const [dealers, setDealers] = useState<Dealer[]>([]);
   const [coords, setCoords] = useState<{lat:number;lng:number}|null>(null);
   const [region, setRegion] = useState<string>("all");
-  useEffect(() => { call({}).then(setDealers); }, []);
+  useEffect(() => { call({}).then((rows) => setDealers((rows ?? []) as unknown as Dealer[])); }, []);
   const requestLocation = () => {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition((p)=>setCoords({lat:p.coords.latitude,lng:p.coords.longitude}), ()=>{});

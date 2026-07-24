@@ -303,6 +303,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "service_appointments_dealer_id_fkey"
+            columns: ["dealer_id"]
+            isOneToOne: false
+            referencedRelation: "dealers_directory"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "service_appointments_tractor_id_fkey"
             columns: ["tractor_id"]
             isOneToOne: false
@@ -518,7 +525,36 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      dealers_directory: {
+        Row: {
+          address: string | null
+          city: string | null
+          id: string | null
+          latitude: number | null
+          longitude: number | null
+          name: string | null
+          region: string | null
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          id?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          name?: string | null
+          region?: string | null
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          id?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          name?: string | null
+          region?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       can_access_ticket: {
