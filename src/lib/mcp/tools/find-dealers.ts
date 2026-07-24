@@ -24,8 +24,8 @@ export default defineTool({
       return { content: [{ type: "text", text: "Not authenticated" }], isError: true };
     }
     let q = supabaseForUser(ctx)
-      .from("dealers")
-      .select("id, name, region, city, address, phone")
+      .from("dealers_directory")
+      .select("id, name, region, city, address")
       .order("region")
       .limit(limit);
     if (region) q = q.ilike("region", `%${region}%`);
