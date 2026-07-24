@@ -399,7 +399,7 @@ function DealersTab() {
   const [dealers, setDealers] = useState<Dealer[]>([]);
   const [coords, setCoords] = useState<{lat:number;lng:number}|null>(null);
   const [region, setRegion] = useState<string>("all");
-  useEffect(() => { call({}).then(setDealers); }, []);
+  useEffect(() => { call({}).then((rows) => setDealers((rows ?? []) as unknown as Dealer[])); }, []);
   const requestLocation = () => {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition((p)=>setCoords({lat:p.coords.latitude,lng:p.coords.longitude}), ()=>{});
