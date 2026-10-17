@@ -9,41 +9,40 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiTtsRouteImport } from './routes/api/tts'
-import { Route as ApiSttRouteImport } from './routes/api/stt'
-import { Route as ApiDiagnoseRouteImport } from './routes/api/diagnose'
-import { Route as ApiChatRouteImport } from './routes/api/chat'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
-import { Route as AuthenticatedDashboardUsersRouteImport } from './routes/_authenticated/dashboard/users'
-import { Route as AuthenticatedDashboardRecommendRouteImport } from './routes/_authenticated/dashboard/recommend'
-import { Route as AuthenticatedDashboardKnowledgeRouteImport } from './routes/_authenticated/dashboard/knowledge'
-import { Route as AuthenticatedDashboardEngineerRouteImport } from './routes/_authenticated/dashboard/engineer'
-import { Route as AuthenticatedDashboardDiagnoseRouteImport } from './routes/_authenticated/dashboard/diagnose'
-import { Route as AuthenticatedDashboardDealerRouteImport } from './routes/_authenticated/dashboard/dealer'
-import { Route as AuthenticatedDashboardCustomerRouteImport } from './routes/_authenticated/dashboard/customer'
-import { Route as AuthenticatedDashboardComplaintsRouteImport } from './routes/_authenticated/dashboard/complaints'
-import { Route as AuthenticatedDashboardChatRouteImport } from './routes/_authenticated/dashboard/chat'
-import { Route as AuthenticatedDashboardAppointmentsRouteImport } from './routes/_authenticated/dashboard/appointments'
-import { Route as AuthenticatedDashboardAnalyticsRouteImport } from './routes/_authenticated/dashboard/analytics'
-import { Route as AuthenticatedDashboardAdminRouteImport } from './routes/_authenticated/dashboard/admin'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiDiagnoseRouteImport } from './routes/api/diagnose'
+import { Route as ApiSttRouteImport } from './routes/api/stt'
+import { Route as ApiTtsRouteImport } from './routes/api/tts'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedDashboardAdminRouteImport } from './routes/_authenticated/dashboard/admin'
+import { Route as AuthenticatedDashboardAnalyticsRouteImport } from './routes/_authenticated/dashboard/analytics'
+import { Route as AuthenticatedDashboardAppointmentsRouteImport } from './routes/_authenticated/dashboard/appointments'
+import { Route as AuthenticatedDashboardChatRouteImport } from './routes/_authenticated/dashboard/chat'
+import { Route as AuthenticatedDashboardComplaintsRouteImport } from './routes/_authenticated/dashboard/complaints'
+import { Route as AuthenticatedDashboardCustomerRouteImport } from './routes/_authenticated/dashboard/customer'
+import { Route as AuthenticatedDashboardDealerRouteImport } from './routes/_authenticated/dashboard/dealer'
+import { Route as AuthenticatedDashboardDiagnoseRouteImport } from './routes/_authenticated/dashboard/diagnose'
+import { Route as AuthenticatedDashboardEngineerRouteImport } from './routes/_authenticated/dashboard/engineer'
+import { Route as AuthenticatedDashboardKnowledgeRouteImport } from './routes/_authenticated/dashboard/knowledge'
+import { Route as AuthenticatedDashboardRecommendRouteImport } from './routes/_authenticated/dashboard/recommend'
+import { Route as AuthenticatedDashboardUsersRouteImport } from './routes/_authenticated/dashboard/users'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -51,23 +50,31 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiTtsRoute = ApiTtsRouteImport.update({
-  id: '/api/tts',
-  path: '/api/tts',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiSttRoute = ApiSttRouteImport.update({
-  id: '/api/stt',
-  path: '/api/stt',
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiDiagnoseRoute = ApiDiagnoseRouteImport.update({
@@ -75,21 +82,25 @@ const ApiDiagnoseRoute = ApiDiagnoseRouteImport.update({
   path: '/api/diagnose',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiChatRoute = ApiChatRouteImport.update({
-  id: '/api/chat',
-  path: '/api/chat',
+const ApiSttRoute = ApiSttRouteImport.update({
+  id: '/api/stt',
+  path: '/api/stt',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
+const ApiTtsRoute = ApiTtsRouteImport.update({
+  id: '/api/tts',
+  path: '/api/tts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
 const AuthenticatedDashboardIndexRoute =
@@ -98,64 +109,10 @@ const AuthenticatedDashboardIndexRoute =
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedDashboardUsersRoute =
-  AuthenticatedDashboardUsersRouteImport.update({
-    id: '/dashboard/users',
-    path: '/dashboard/users',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardRecommendRoute =
-  AuthenticatedDashboardRecommendRouteImport.update({
-    id: '/dashboard/recommend',
-    path: '/dashboard/recommend',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardKnowledgeRoute =
-  AuthenticatedDashboardKnowledgeRouteImport.update({
-    id: '/dashboard/knowledge',
-    path: '/dashboard/knowledge',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardEngineerRoute =
-  AuthenticatedDashboardEngineerRouteImport.update({
-    id: '/dashboard/engineer',
-    path: '/dashboard/engineer',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardDiagnoseRoute =
-  AuthenticatedDashboardDiagnoseRouteImport.update({
-    id: '/dashboard/diagnose',
-    path: '/dashboard/diagnose',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardDealerRoute =
-  AuthenticatedDashboardDealerRouteImport.update({
-    id: '/dashboard/dealer',
-    path: '/dashboard/dealer',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardCustomerRoute =
-  AuthenticatedDashboardCustomerRouteImport.update({
-    id: '/dashboard/customer',
-    path: '/dashboard/customer',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardComplaintsRoute =
-  AuthenticatedDashboardComplaintsRouteImport.update({
-    id: '/dashboard/complaints',
-    path: '/dashboard/complaints',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardChatRoute =
-  AuthenticatedDashboardChatRouteImport.update({
-    id: '/dashboard/chat',
-    path: '/dashboard/chat',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardAppointmentsRoute =
-  AuthenticatedDashboardAppointmentsRouteImport.update({
-    id: '/dashboard/appointments',
-    path: '/dashboard/appointments',
+const AuthenticatedDashboardAdminRoute =
+  AuthenticatedDashboardAdminRouteImport.update({
+    id: '/dashboard/admin',
+    path: '/dashboard/admin',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedDashboardAnalyticsRoute =
@@ -164,23 +121,66 @@ const AuthenticatedDashboardAnalyticsRoute =
     path: '/dashboard/analytics',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedDashboardAdminRoute =
-  AuthenticatedDashboardAdminRouteImport.update({
-    id: '/dashboard/admin',
-    path: '/dashboard/admin',
+const AuthenticatedDashboardAppointmentsRoute =
+  AuthenticatedDashboardAppointmentsRouteImport.update({
+    id: '/dashboard/appointments',
+    path: '/dashboard/appointments',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const Char91DotmcpChar93InvokeToolToolRoute =
-  Char91DotmcpChar93InvokeToolToolRouteImport.update({
-    id: '/.mcp/invoke-tool/$tool',
-    path: '/.mcp/invoke-tool/$tool',
-    getParentRoute: () => rootRouteImport,
+const AuthenticatedDashboardChatRoute =
+  AuthenticatedDashboardChatRouteImport.update({
+    id: '/dashboard/chat',
+    path: '/dashboard/chat',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const AuthenticatedDashboardComplaintsRoute =
+  AuthenticatedDashboardComplaintsRouteImport.update({
+    id: '/dashboard/complaints',
+    path: '/dashboard/complaints',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardCustomerRoute =
+  AuthenticatedDashboardCustomerRouteImport.update({
+    id: '/dashboard/customer',
+    path: '/dashboard/customer',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardDealerRoute =
+  AuthenticatedDashboardDealerRouteImport.update({
+    id: '/dashboard/dealer',
+    path: '/dashboard/dealer',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardDiagnoseRoute =
+  AuthenticatedDashboardDiagnoseRouteImport.update({
+    id: '/dashboard/diagnose',
+    path: '/dashboard/diagnose',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardEngineerRoute =
+  AuthenticatedDashboardEngineerRouteImport.update({
+    id: '/dashboard/engineer',
+    path: '/dashboard/engineer',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardKnowledgeRoute =
+  AuthenticatedDashboardKnowledgeRouteImport.update({
+    id: '/dashboard/knowledge',
+    path: '/dashboard/knowledge',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardRecommendRoute =
+  AuthenticatedDashboardRecommendRouteImport.update({
+    id: '/dashboard/recommend',
+    path: '/dashboard/recommend',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardUsersRoute =
+  AuthenticatedDashboardUsersRouteImport.update({
+    id: '/dashboard/users',
+    path: '/dashboard/users',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -368,25 +368,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -396,46 +382,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/tts': {
-      id: '/api/tts'
-      path: '/api/tts'
-      fullPath: '/api/tts'
-      preLoaderRoute: typeof ApiTtsRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/stt': {
-      id: '/api/stt'
-      path: '/api/stt'
-      fullPath: '/api/stt'
-      preLoaderRoute: typeof ApiSttRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/diagnose': {
-      id: '/api/diagnose'
-      path: '/api/diagnose'
-      fullPath: '/api/diagnose'
-      preLoaderRoute: typeof ApiDiagnoseRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/chat': {
-      id: '/api/chat'
-      path: '/api/chat'
-      fullPath: '/api/chat'
-      preLoaderRoute: typeof ApiChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -445,88 +410,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/diagnose': {
+      id: '/api/diagnose'
+      path: '/api/diagnose'
+      fullPath: '/api/diagnose'
+      preLoaderRoute: typeof ApiDiagnoseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/stt': {
+      id: '/api/stt'
+      path: '/api/stt'
+      fullPath: '/api/stt'
+      preLoaderRoute: typeof ApiSttRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tts': {
+      id: '/api/tts'
+      path: '/api/tts'
+      fullPath: '/api/tts'
+      preLoaderRoute: typeof ApiTtsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/dashboard/': {
       id: '/_authenticated/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/users': {
-      id: '/_authenticated/dashboard/users'
-      path: '/dashboard/users'
-      fullPath: '/dashboard/users'
-      preLoaderRoute: typeof AuthenticatedDashboardUsersRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/recommend': {
-      id: '/_authenticated/dashboard/recommend'
-      path: '/dashboard/recommend'
-      fullPath: '/dashboard/recommend'
-      preLoaderRoute: typeof AuthenticatedDashboardRecommendRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/knowledge': {
-      id: '/_authenticated/dashboard/knowledge'
-      path: '/dashboard/knowledge'
-      fullPath: '/dashboard/knowledge'
-      preLoaderRoute: typeof AuthenticatedDashboardKnowledgeRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/engineer': {
-      id: '/_authenticated/dashboard/engineer'
-      path: '/dashboard/engineer'
-      fullPath: '/dashboard/engineer'
-      preLoaderRoute: typeof AuthenticatedDashboardEngineerRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/diagnose': {
-      id: '/_authenticated/dashboard/diagnose'
-      path: '/dashboard/diagnose'
-      fullPath: '/dashboard/diagnose'
-      preLoaderRoute: typeof AuthenticatedDashboardDiagnoseRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/dealer': {
-      id: '/_authenticated/dashboard/dealer'
-      path: '/dashboard/dealer'
-      fullPath: '/dashboard/dealer'
-      preLoaderRoute: typeof AuthenticatedDashboardDealerRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/customer': {
-      id: '/_authenticated/dashboard/customer'
-      path: '/dashboard/customer'
-      fullPath: '/dashboard/customer'
-      preLoaderRoute: typeof AuthenticatedDashboardCustomerRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/complaints': {
-      id: '/_authenticated/dashboard/complaints'
-      path: '/dashboard/complaints'
-      fullPath: '/dashboard/complaints'
-      preLoaderRoute: typeof AuthenticatedDashboardComplaintsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/chat': {
-      id: '/_authenticated/dashboard/chat'
-      path: '/dashboard/chat'
-      fullPath: '/dashboard/chat'
-      preLoaderRoute: typeof AuthenticatedDashboardChatRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/appointments': {
-      id: '/_authenticated/dashboard/appointments'
-      path: '/dashboard/appointments'
-      fullPath: '/dashboard/appointments'
-      preLoaderRoute: typeof AuthenticatedDashboardAppointmentsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard/analytics': {
-      id: '/_authenticated/dashboard/analytics'
-      path: '/dashboard/analytics'
-      fullPath: '/dashboard/analytics'
-      preLoaderRoute: typeof AuthenticatedDashboardAnalyticsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard/admin': {
@@ -536,19 +473,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_authenticated/dashboard/analytics': {
+      id: '/_authenticated/dashboard/analytics'
+      path: '/dashboard/analytics'
+      fullPath: '/dashboard/analytics'
+      preLoaderRoute: typeof AuthenticatedDashboardAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/.lovable/oauth/consent': {
-      id: '/.lovable/oauth/consent'
-      path: '/.lovable/oauth/consent'
-      fullPath: '/.lovable/oauth/consent'
-      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_authenticated/dashboard/appointments': {
+      id: '/_authenticated/dashboard/appointments'
+      path: '/dashboard/appointments'
+      fullPath: '/dashboard/appointments'
+      preLoaderRoute: typeof AuthenticatedDashboardAppointmentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/chat': {
+      id: '/_authenticated/dashboard/chat'
+      path: '/dashboard/chat'
+      fullPath: '/dashboard/chat'
+      preLoaderRoute: typeof AuthenticatedDashboardChatRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/complaints': {
+      id: '/_authenticated/dashboard/complaints'
+      path: '/dashboard/complaints'
+      fullPath: '/dashboard/complaints'
+      preLoaderRoute: typeof AuthenticatedDashboardComplaintsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/customer': {
+      id: '/_authenticated/dashboard/customer'
+      path: '/dashboard/customer'
+      fullPath: '/dashboard/customer'
+      preLoaderRoute: typeof AuthenticatedDashboardCustomerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/dealer': {
+      id: '/_authenticated/dashboard/dealer'
+      path: '/dashboard/dealer'
+      fullPath: '/dashboard/dealer'
+      preLoaderRoute: typeof AuthenticatedDashboardDealerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/diagnose': {
+      id: '/_authenticated/dashboard/diagnose'
+      path: '/dashboard/diagnose'
+      fullPath: '/dashboard/diagnose'
+      preLoaderRoute: typeof AuthenticatedDashboardDiagnoseRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/engineer': {
+      id: '/_authenticated/dashboard/engineer'
+      path: '/dashboard/engineer'
+      fullPath: '/dashboard/engineer'
+      preLoaderRoute: typeof AuthenticatedDashboardEngineerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/knowledge': {
+      id: '/_authenticated/dashboard/knowledge'
+      path: '/dashboard/knowledge'
+      fullPath: '/dashboard/knowledge'
+      preLoaderRoute: typeof AuthenticatedDashboardKnowledgeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/recommend': {
+      id: '/_authenticated/dashboard/recommend'
+      path: '/dashboard/recommend'
+      fullPath: '/dashboard/recommend'
+      preLoaderRoute: typeof AuthenticatedDashboardRecommendRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/users': {
+      id: '/_authenticated/dashboard/users'
+      path: '/dashboard/users'
+      fullPath: '/dashboard/users'
+      preLoaderRoute: typeof AuthenticatedDashboardUsersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
